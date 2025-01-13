@@ -13,7 +13,8 @@ class _SignUpViewState extends State<Loginview> {
   var showtext = false;
 
   bool chang = false;
-  // TextEditingController controller = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class _SignUpViewState extends State<Loginview> {
         Padding(
           padding: const EdgeInsets.only(top: 150),
           child: TextFormField(
+            controller: emailController,
             decoration: InputDecoration(
               prefix: Icon(Icons.email_outlined),
               // icon: Icon(Icons.email),
@@ -43,6 +45,7 @@ class _SignUpViewState extends State<Loginview> {
           height: 20,
         ),
         TextFormField(
+          controller: passwordController,
           decoration: InputDecoration(
             prefix: Icon(Icons.password_rounded),
             // icon: Icon(Icons.email),
@@ -57,11 +60,31 @@ class _SignUpViewState extends State<Loginview> {
         ),
         ElevatedButton(
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) {
-                  return HomeView();
-                },
-              ));
+              if (emailController.text.isEmpty ||
+                  passwordController.text.isEmpty) {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: Text('Error'),
+                      content: Text('Empty? Enter your credentials'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Ok'))
+                      ],
+                    );
+                  },
+                );
+              } else {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return HomeView();
+                  },
+                ));
+              }
             },
             child: Text('Log In')),
         SizedBox(

@@ -13,7 +13,8 @@ class _SignUpViewState extends State<SignUpView> {
   var showtext = false;
 
   bool chang = false;
-  // TextEditingController controller = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,8 @@ class _SignUpViewState extends State<SignUpView> {
           Padding(
             padding: const EdgeInsets.only(top: 150),
             child: TextFormField(
+              controller: emailController,
+
               decoration: InputDecoration(
                 prefix: Icon(Icons.email_outlined),
                 // icon: Icon(Icons.email),
@@ -44,6 +47,7 @@ class _SignUpViewState extends State<SignUpView> {
             height: 20,
           ),
           TextFormField(
+            controller: passwordController,
             decoration: InputDecoration(
               prefix: Icon(Icons.password_rounded),
               // icon: Icon(Icons.email),
@@ -59,28 +63,31 @@ class _SignUpViewState extends State<SignUpView> {
           ),
           ElevatedButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text('Error'),
-                      content: Text('Empty? Enter your credentials'),
-                      actions: [
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('Ok'))
-                      ],
-                    );
-                  },
-                );
-
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return HomeView();
-                  },
-                ));
+                if (emailController.text.isEmpty ||
+                    passwordController.text.isEmpty) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Error'),
+                        content: Text('Empty? Enter your credentials'),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Ok'))
+                        ],
+                      );
+                    },
+                  );
+                } else {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return HomeView();
+                    },
+                  ));
+                }
               },
               child: Text('Sign Up')),
           Padding(
