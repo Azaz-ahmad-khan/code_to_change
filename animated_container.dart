@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ScreenSize extends StatefulWidget {
@@ -8,20 +9,52 @@ class ScreenSize extends StatefulWidget {
 }
 
 class _ScreenSizeState extends State<ScreenSize> {
+  void dialoging() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text('Error here'),
+          content: Text('Are you sure you want to delete'),
+          actions: [
+            Row(
+              children: [
+                MaterialButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Yes'),
+                  color: Colors.pink,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: MaterialButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('No'),
+                    color: Colors.pink,
+                  ),
+                )
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            Text('height' + MediaQuery.of(context).size.height.toString()),
-            Text('width' + MediaQuery.of(context).size.width.toString()),
-            Text('Aspect Ratio' +
-                MediaQuery.of(context).size.aspectRatio.toStringAsFixed(2)),
-            Text('orientation' + MediaQuery.of(context).orientation.toString())
-          ],
-        ),
+        body: Center(
+      child: MaterialButton(
+        color: Colors.deepOrangeAccent,
+        onPressed: () {
+          dialoging();
+        },
+        child: Text('Show Dialogue'),
       ),
-    );
+    ));
   }
 }
