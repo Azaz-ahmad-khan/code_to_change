@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning_flutter/tab_bar.dart';
+import 'package:learning_flutter/animated_container.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: ChangeAnimations(),
+      home: ScreenSize(),
     );
   }
 }
